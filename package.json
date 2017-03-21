@@ -1,0 +1,13 @@
+{
+  "name": "beata-viscera",
+  "version": "1.0.0",
+  "description": "Based on Beata viscera, a solo conductus from the 13th century attributed to Pérotin. Poetry by Phillip the Chancellor.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "gulp-exec": "^2.1.3"
+  },
+  "author": "Piper Haywood"
+}
