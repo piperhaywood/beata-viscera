@@ -1,144 +1,152 @@
 \header {
-  title = "Beata viscera"
+  title = "BEATA VISCERA"
+  subtitle = "for 9 or more singers with mirrors"
+  copyright = "arr. Piper Haywood with Toby O’Connor"
   tagline = ""
+  %{poet = "Phillip the Chancellor"%}
+  composer = "Pérotin"
+  %{arranger = "arr. Piper Haywood"%}
 }
 
-% TODO add rest indication after "novitas"
 % TODO add tremolos ?
 % TODO make ambitus look a little better?
   % http://lilypond.org/doc/v2.19/Documentation/internals/ambitus
 % TODO tidy up lyrics, double check agaist recordings
+
+
+% TODO begin with fermata, ad lib
+
+
+
 \paper {
-  top-margin = 10
+  top-margin = 20
+  bottom-margin = 20
+  %{markup-system-spacing.basic-distance = 15%}
+  system-system-spacing.basic-distance = 20
+  last-bottom-spacing.basic-distance = 15
 }
 
 \score {
   <<
-  \new Staff %{\with { \consists "Ambitus_engraver" }%} {
+  \time 6/8
+  \set Timing.defaultBarType = "!"
+  \hide Score.BarNumber
+  \new Staff \with {
+    %{\consists "Ambitus_engraver"%}
+    instrumentName = "Chant"
+    %{shortInstrumentName = "Ch."%}
+  }
+  {
+    \tempo "Slow and free" 4. = 40 - 46
     \key g \minor
+    
     %{\override AmbitusLine.gap = #0.8%}
-    \set Timing.defaultBarType = "!"
-    \hide Score.BarNumber
     \override Staff.TimeSignature.color = #white
     \override Staff.TimeSignature.layer = #-1
-    \time 6/8
-    \clef "treble_8" {
+    \clef "treble" {
       \relative c' {
-        \new Voice = "verse" {
-          \partial 8
-          c,8 g'4. g4 (a8) bes16 (a16 g8) a8 g4 % Beata Viscera
-          f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4 % Mariæ virginis,
-          c,8 \break g'4. g4 (a8) bes16 (a16 g8) a8 g4 % cuius ad ubera,
-          f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4 % rex magni nominis;
-          a8 bes4 c8 bes16 (a16 g8) f8 ees16 (d16 ees8) f8 ees16 (d16 c8) bes8 % veste sub altera vim celans
-          c4 d8 ees4 f8 g4. g8 (a8 bes8) % numinis, dictavit
-          a16 (g16 f8) ees8 f4. (ees8 d8 c8) bes4. c8 (d8) % federa Dei
-          ees8 f4. (ees8 d8 c8) d16 (c16 c8 bes8) c4. r4. % et hominis.
-          \bar "||"
-        }
-        \new Voice = "refrain" {
-          \break
-          c'4. (bes8 a8 g8 f4 g8 a4 bes8 g4 g16 a16 bes4. c4 c8 bes16 a16 g8 f8 ees8 d8 c8 bes4.) % O
-          c8 (d8 ees8) f4 (ees8) ees16 (d16 c8) bes8 c4 % mira novitas
-          g8 c4. c8 (c8 d8) ees4. f8 (ees8 d8) ees4. r4 % et novum gaudium,
-          f8 g4 a8 bes16 (a16 g8) a8 g4. % matris integrita
-          g4 (a8 c4. bes8 a8 g8 f4 g8 a4 bes8 g4 a16 bes16 c4 c8 bes16 a16 g8 f8 ees8 d8 c8 bes4.) % post
-          c4 d8 ees8 (f8 ees8) d4 (c8) c4. r4 % puerperium.
-          \bar ":|."
+        \new Voice = "chant" {
+          \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.curved" }
+          \override TextSpanner.outside-staff-padding = #1
+          \override TextSpanner.bound-details.left.text = \markup { "c.15–20\"" }
+          
+          \repeat volta 7 { 
+            r2.\startTextSpan
+            r2.
+            r2\stopTextSpan r8 c8 \break \bar ".|:" g'4. g4 (a8) bes16 (a16 g8) a8 g4 % Beata Viscera
+            
+            f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4 % Mariæ virginis,
+            c,8 \break g'4. g4 (a8) bes16 (a16 g8) a8 g4 % cuius ad ubera,
+            f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4 % rex magni nominis;
+            a8 bes4 c8 bes16 (a16 g8) f8 ees16 (d16 ees8) f8 ees16 (d16 c8) bes8 % veste sub altera vim celans
+            c4 d8 ees4 f8 g4. g8 (a8 bes8) \break % numinis, dictavit
+            a16 (g16 f8) ees8 f4. (ees8 d8 c8) bes4. c8 (d8) % federa Dei
+            ees8 f4. (ees8 d8 c8) d16 (c16 c8 bes8) c4. r4. % et hominis.
+            \bar "||"
+            \break
+            c'4. (bes8 a8 g8 f4 g8 a4 bes8 g4 g16 a16 bes4. c4 c8 bes16 a16 g8 f8 ees8 d8 c8 bes4.) % O
+            c8 (d8 ees8) f4 (ees8)  \break ees16 (d16 c8) bes8 c4 \breathe % mira novitas
+            g8 c4. c8 (c8 d8) ees4. f8 (ees8 d8) ees4. r4 % et novum gaudium,
+            f8 g4 a8 bes16 (a16 g8) a8 g4. % matris integrita
+            g4 (a8 c4. bes8 a8 g8 f4 g8 a4 bes8 g4 a16 bes16 c4 c8 bes16 a16 g8 f8 ees8 d8 c8 bes4.) % post
+            c4 d8 ees8 (f8 ees8) d4 (c8) |
+          }
+          \alternative {
+            { c4. r4 c8 | }
+            { c4. r4. | }
+          }
+          r2.
+
+          \bar "|."
         }
       }
     }
   }
-  \new Lyrics \lyricsto "refrain" {
-    O __ mi -- ra __ no -- vi -- tas
-    et no -- vum gau -- di -- um,
-    ma -- tris in -- te -- gri -- ta,
-    post __ pu -- er -- per -- i -- um.
+  \new Lyrics \lyricsto "chant" {
+    %{\set stanza = #"1. "%}
+    Be --
+    \repeat volta 2 {
+      a -- ta __ vi -- sce -- ra
+      Ma -- ri -- æ vir -- gi -- nis,
+      cu -- ius ad __ u -- be -- ra,
+      rex ma -- gni no -- mi -- nis;
+      ve -- ste sub al -- te -- ra __ vim ce -- lans
+      nu -- mi -- nis, dic -- ta -- vit __
+      fe -- de -- ra __ De -- i __ et ho -- mi -- nis.
+
+      O __ mi -- ra __ no -- vi -- tas
+      et no -- vum gau -- di -- um,
+      ma -- tris in -- te -- gri -- ta,
+      post __ pu -- er -- per -- i --
+
+    }
+    \alternative { { um. Po -- } { um. } }
+
   }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"1. "
-    Be -- a -- ta __ vi -- sce -- ra
-    Ma -- ri -- æ vir -- gi -- nis,
-    cu -- ius ad __ u -- be -- ra,
-    rex ma -- gni no -- mi -- nis;
-    ve -- ste sub al -- te -- ra __ vim ce -- lans
-    nu -- mi -- nis, dic -- ta -- vit __
-    fe -- de -- ra __ De -- i __ et ho -- mi -- nis.
+  \new Staff \with {
+    instrumentName = "Drone"
   }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"2. "
-    Po -- pu -- lus __ gen -- ti -- um
-    se -- dens __ in te -- ne -- bris
-    sur -- git ad __ gau -- di -- um
-    par -- tus __ tam cel -- e -- bris:
-    I -- u -- de -- a __ te -- di -- um
-    fo -- vet in la -- te -- bris,
-    cor ge -- rens con -- sci -- um
-    de -- li -- cet __ fu -- ne -- bris,
+  {
+    \key g \minor
+    \override Staff.TimeSignature.color = #white
+    \override Staff.TimeSignature.layer = #-1
+    \relative c' {
+      \crescTextCresc
+      c2.\< (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+      (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
+    }
   }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"3. "
-    Fer -- men -- ti __ pes -- si -- mi
-    qui fe -- cam hau -- se -- rant,
-    ad pa -- nis __ a -- zi -- mi
-    pro -- mi -- sa pro -- pe -- rant:
-    sunt De -- o pro -- xi -- mi __
-    qui lon -- ge ste -- te -- rant,
-    et hi njo -- vis -- si -- mi __
-    qui pri -- mi fu -- er -- ant.
-  }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"4. "
-    Par -- tum quem __  de -- stru -- is,
-    I -- u -- de -- a mi -- se -- ra!
-    De quo __ nos __ ar -- gu -- es,
-    quem __ do -- cet lit -- te -- ra;
-    si no -- va __ res -- pu -- is,
-    cre -- de vel ve -- ter -- a,
-    in hoc __ quem __ as -- tru -- is
-    Chri -- stum con -- si -- der -- a.
-  }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"5. "
-    Te sem -- per __ im -- pli -- cas
-    err -- o -- re pa -- tri -- o;
-    dum vi -- am __ in -- di -- cas
-    err -- ans __ in in -- vi -- o:
-    in his que pre -- di -- cas, __
-    ster -- nis __ in me -- di -- o
-    ba -- ses pro -- phe -- ti -- cas __
-    sub e -- van -- ge -- li -- o.
-  }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"6. "
-    Le -- gis mos -- ay -- ce
-    clau -- sa mi -- ster -- i -- a; % TODO this should be extended
-    nux vir -- ge my -- sti -- ce
-    na -- tu -- re ne -- sci -- a;
-    a -- qua de si -- li -- ce,
-    co -- lum -- pna pre -- vi -- a,
-    pro -- lis do -- mi -- ni -- ce
-    si -- gna sunt pro -- per -- a.
-  }
-  \new Lyrics \lyricsto "verse" {
-    \set stanza = #"7. "
-    So -- lem, quem __ li -- bre -- re,
-    Dum pu -- rus o -- ti -- tur
-    In au -- ra __ cer -- ner -- e
-    vi -- sus __ non pa -- ti -- tur,
-    cer -- nat a la -- te -- re __
-    dum re -- per -- cu -- ti -- tur,
-    al -- vus pu -- er -- per -- e, __
-    qua to -- tus clau -- di -- tur.
-  }
+
   >>
+  \midi { }
   \layout {
     \context {
       \Score
-      %{\override LyricSpace #'minimum-distance = #1.8%}
-      %{\override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)%}
+      \override LyricSpace #'minimum-distance = #7
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
     }
   }
 }
+
+%{\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { Po- | pu-lus_ | gen-ti-um se- | dens_ | in te-ne- | bris }
+        \line { sur- | git ad_ | gau-di-um par- | tus_ | tam ce-le-bris:}
+        \line { I- | u-de-a_ te- | di-um fo-vet | }
+        \line { in la-te-bris, | cor ge- | rens con-sci- | um | }
+        \line { de- | li-cet fu- | ne- | bris, }
+
+      }
+    }
+  }
+}%}
 
 \version "2.18.2"
