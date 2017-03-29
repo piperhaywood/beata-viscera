@@ -1,3 +1,5 @@
 *.pdf
 *.midi
 node_modules
+*.indd
+*.idlk
