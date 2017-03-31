@@ -1,86 +1,53 @@
 \header {
-  dedication = \markup { \italic \column {
-    \line {  \center-align "Arranged for and performed by Musarc in tandem with Rainbows by Sarah Kate Wilson" }
-    \combine \null \vspace #0.2
-  } }
-  title = "BEATA VISCERA IRIDIS"
-  subtitle = "for 9 or more singers"
-  copyright = "arr. Piper Haywood with Toby O’Connor"
+  title = "BEATA VISCERA"
   tagline = ""
-  %{poet = "Phillip the Chancellor"%}
+  poet = "Phillip the Chancellor"
   composer = "Pérotin"
-  %{arranger = "arr. Piper Haywood"%}
 }
 
-glissandoSkipOn = {
-  \override NoteColumn.glissando-skip = ##t
-  \hide NoteHead
-  \override NoteHead.no-ledgers = ##t
-}
-
-glissandoSkipOff = {
-  \revert NoteColumn.glissando-skip
-  \undo \hide NoteHead
-  \revert NoteHead.no-ledgers
-}
+custom-font = "Georgia"
 
 \paper {
-  %{top-margin = 15%}
-  bottom-margin = 15
-  %{system-system-spacing.basic-distance = 18%}
-  last-bottom-spacing.basic-distance = 10
-  %{score-markup-spacing.basic-distance = 10%}
-  #(include-special-characters)
   #(set-paper-size "quarto") % close to mirror size, 190x240mm
   #(define fonts
-    (make-pango-font-tree "Georgia"
+    (make-pango-font-tree custom-font
                           "Nimbus Sans"
                           "Luxi Mono"
                           (/ staff-height pt 20)))
-                          
-  #(define fonts
-    (make-pango-font-tree "Bodoni 72 Oldstyle"
-                          "Nimbus Sans"
-                          "Luxi Mono"
-                          (/ staff-height pt 20)))
+  #(include-special-characters)
+  last-bottom-spacing.basic-distance = 10
+  top-margin = 7
+  indent = 0
 }
 
 \markup "&nbsp;"
 
 \score {
+  %{\header {
+    piece = \markup { \fontsize #4 \bold "BEATA VISCERA" }
+    opus = \markup { "Pérotin" }
+  }%}
   <<
   \time 6/8
-  \hide Score.BarNumber
+  %{\hide Score.BarNumber%}
   \set Timing.defaultBarType = "'"
-  \new Staff \with {
-    instrumentName = "Chant"
-  } {
+  \new Staff {
     \key g \minor
-    \override Staff.TimeSignature.color = #white
-    \override Staff.TimeSignature.layer = #-1
+    %{\override Staff.TimeSignature.color = #white%}
+    %{\override Staff.TimeSignature.layer = #-1%}
     \clef "treble" {
       \relative c' {
         \new Voice = "chant" {
           \repeat volta 7 {
-            r2. r2. r2. r2.
-            % Beata Viscera
-            \break
-            r2^\markup { \italic "Chanters enter at their discretion, offset from one another" } r8 c8 \bar ".|:"
+            r2 r8 c8 \bar ".|:"
             \tempo "Meditative" 4. = 40 - 46
-            g'4. g4 (a8) bes16 (a16 g8) a8 g4
-            % Mariæ virginis,
-            f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4
-            % cuius ad ubera,
-            c,8 g'4. g4 (a8) bes16 (a16 g8) a8 g4
-            % rex magni nominis;
-            f8 g4. (f8 ees8 d8) f4 g8 a16 (g16 g8 f8) g4. r4
-            % veste sub altera vim celans
-            a8 bes4 c8 bes16 (a16 g8) f8 ees16 (d16 ees8) f8 ees16 (d16 c8) bes8
-            % numinis, dictavit
-            c4 d8 ees4 f8 g4. g8 (a8 bes8)
-            % federa Dei
-            a16 (g16 f8) ees8 f4. (ees8 d8 c8) bes4. c8 (d8)
-            % et hominis.
+            g'4. g4 (a8) | bes16 (a16 g8) a8 g4
+            f8 | g4. (f8 ees8 d8) | f4 g8 a16 (g16 g8 f8) | g4. r4
+            c,8 | g'4. g4 (a8) | bes16 (a16 g8) a8 g4
+            f8 | g4. (f8 ees8 d8) | f4 g8 a16 (g16 g8 f8) | g4. r4
+            a8 | bes4 c8 bes16 (a16 g8) f8 | ees16 (d16 ees8) f8 ees16 (d16 c8) bes8 |
+            c4 d8 ees4 f8 | g4. g8 (a8 bes8) |
+            a16 (g16 f8) ees8 f4. (ees8 d8 c8) bes4. | c8 (d8)
             ees8 f4. (ees8 d8 c8) d16 (c16 c8 bes8) c4. r4. \bar "||"
             \tempo "Expansive"
             % O
@@ -98,7 +65,7 @@ glissandoSkipOff = {
           }
           \alternative {
             { c4. r4 c8 }
-            { c4. r4. r2. r2. r2. r2. }
+            { c4. r4. \bar "|."}
           }
         }
       }
@@ -123,77 +90,36 @@ glissandoSkipOff = {
     \alternative { { um. Po -- } { um. } }
 
   }
-  \new Staff \with {
-    instrumentName = "DRONE"
-  } {
-    \key g \minor
-    \override Staff.TimeSignature.color = #white
-    \override Staff.TimeSignature.layer = #-1
-    \clef "treble_8" {
-      \relative c' {
-        <<
-        \new Voice = "drone1"
-        \relative {
-          \voiceTwo
-          \hideNotes
-          bes2.\ppp^\markup { \italic "Singers gradually coalesce on tonic, c.15–60\"" }
-          \glissando % TODO use glissandomap to add further
-          \glissandoSkipOn
-          c,2.
-          \glissandoSkipOff
-          \unHideNotes
-          c2.\< (c2.)
-          (c2.\!)^\markup { \italic "Drone singers maintain harmonic basis and may reflect chant phrases ad libitum" } (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.) (c2.)
-          (c2.) (c2.) (c2.) (c2.) (c2.)
-          (\break c2.\>) (c2.) (c2.\ppp\!) (c2.) ^\markup{ \italic "ad infinitum" }
-          \bar "|."
-        }
-        \new Voice = "drone2"
-        \relative {
-          \voiceOne
-          \hideNotes
-          r2. r2. r2. r2. r2.
-          r2. r4.
-          \unHideNotes
-          bes16 a16 g8 a8 g4.
-          \hideNotes
-          r4. r2.
-          \unHideNotes
-        }
-        >>
-      }
-      
-    }
-  }
-
   >>
   \midi { }
   \layout {
-    %{#(layout-set-staff-size 16)%}
+    #(layout-set-staff-size 16)
+    \override LyricText.font-name = \custom-font
+    \override Score.BarNumber.font-name = \custom-font
+    \override Staff.InstrumentName.font-name = \custom-font
+
     \context {
       \Score
       \override LyricSpace #'minimum-distance = #5
       \override DynamicText.direction = #UP
       \override DynamicLineSpanner.direction = #UP
     }
-    \context {
-      \Staff
-      % these lines prevent empty staves from being printed
-      \RemoveEmptyStaves
-      \override VerticalAxisGroup.remove-first = ##t
-    }
   }
 }
 
 \markup {
-  \abs-fontsize #10
+  \abs-fontsize #8.75
   \fill-line {
     \column {
+      \line { \italic
+        \column {
+          \line { Dashes and underscores in the lyrics below indicate }
+          \line { melismatic syllables. The chanter should not feel bound to }
+          \line { the written rhythm and should sing the strophes freely. }
+          \line { Each strophe is followed by the refrain at bar 21. }
+        }
+      }
+      \combine \null \vspace #0.2
       \line { \bold "1."
         \column {
           \line { Be–a–ta_ vi–sce–ra Ma–ri–æ vir–gi–nis }
@@ -220,7 +146,9 @@ glissandoSkipOff = {
           \line { ste–te–rant, et hi njo–vis–si–mi_ qui pri–mi fu–e–rant. }
         }
       }
-      \combine \null \vspace #0.2
+    }
+    \hspace #0.1 % adds horizontal spacing between columns;
+    \column {
       \line { \bold "4."
         \column {
           \line { Par–tum quem_ de–stru–is Iu–de–a mi–se–ra! }
@@ -229,9 +157,7 @@ glissandoSkipOff = {
           \line { in hoc quem_ as–tru–is_ Chri–stum_ con–si–de–ra. }
         }
       }
-    }
-    \hspace #0.1 % adds horizontal spacing between columns;
-    \column {
+      \combine \null \vspace #0.2
       \line { \bold "5."
         \column {
           \line { Te sem–per_ im–pli–cas er–ro–re pa–tri–o; }
